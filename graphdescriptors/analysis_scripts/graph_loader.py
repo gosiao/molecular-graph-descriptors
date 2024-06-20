@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import networkx as nx
 
-def read_lines(file_name):
+def read_lines(file_name,single=False):
     '''parse the output from the SchNet evalutation
        1) a list of the coordinates of each cluster (returns 1st)
           ['O   1.922131  -1.3179458  -2.891314\n', 'H   1.9396669  -1.812519  -2.0610204\n', ...]
@@ -14,7 +14,7 @@ def read_lines(file_name):
     file = open(file_name)
     
     for line in file:
-        if 'Predicted' in line:
+        if 'Predicted' in line or 'Energy' in line:
             energies_list.append(line)
         elif 'O' in line or 'H' in line:
             coordinates_list.append(line)
@@ -26,7 +26,10 @@ def read_lines(file_name):
         cluster_list.append([x for x in coordinates_list[start:start+atoms]])
         start += atoms
     
-    return cluster_list, [float(str.split(x)[1]) for x in energies_list], [float(str.split(x)[3]) for x in energies_list]
+    if single:
+        return cluster_list, [float(str.split(x)[1]) for x in energies_list]
+    else:
+        return cluster_list, [float(str.split(x)[1]) for x in energies_list], [float(str.split(x)[3]) for x in energies_list]
 
 def read_lines_base(file_name):
     '''parse the database xyz files
