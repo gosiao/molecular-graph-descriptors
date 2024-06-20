@@ -17,8 +17,33 @@ The formatted database for the 500k training and test sets used to train the pub
 Code for generating graphs from molecular structures and computing various descriptors from .xyz files output from SchNetPack. The script get_descriptors.py collects a set of descriptors for all molecules in the .xyz file and outputs a csv file.
 
 ```
+cd graphdescriptors
 python get_descriptors.py --data_path ../data/test_predictions.xyz --output test_df.csv --min_dir ../data/
 ```
+
+or:
+
+```
+./run_all.sh
+```
+
+To run the code for extracting selected descriptors for a single structure, run
+
+```
+./run_single.sh
+```
+
+The results are in the generated `results` directory.
+
+
+### Data analysis
+
+```
+conda activate struc_analysis
+cd analysis
+python analysis.py
+```
+
 
 ### schnetpack
 
@@ -33,6 +58,10 @@ Code amended from [SchNetPack](https://github.com/atomistic-machine-learning/sch
 * networkx
 * pandas
 * numpy
+
+To execute the code in the `conda` environment: /gosia - WIP/
+
+
 
 ## References
 Please cite our [paper](https://aip.scitation.org/doi/10.1063/5.0009933) if you find the code and datasets useful.
