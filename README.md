@@ -4,6 +4,16 @@ This codebase accompanies the paper [A Look Inside the Black Box: Using Graph-Th
 
 Molecular graphs and structures of over 5 million water clusters can be found [here](https://sites.uw.edu/wdbase/).
 
+## How to test the code
+
+
+```
+conda activate struc_analysis
+cd analysis
+```
+
+
+
 ## Contents
 
 ### data
@@ -36,13 +46,36 @@ To run the code for extracting selected descriptors for a single structure, run
 The results are in the generated `results` directory.
 
 
+To test both scripts:
+
+```
+
+```
+
 ### Data analysis
+
+Data analysis is in the `analysis` directory. All scripts present there should be executed in conda environment:
 
 ```
 conda activate struc_analysis
 cd analysis
-python analysis.py
 ```
+
+To select the structures from the original pool, modify and run:
+
+```
+python analysis_initial.py
+```
+
+
+To analyze the structures after the geometry reoptimization, modify and run:
+
+
+```
+python analysis_geomopt.py
+```
+
+
 
 
 ### schnetpack

@@ -1,7 +1,8 @@
 here=`pwd`
-ref_data_dir=$here/data
-data_dir=$here/data
-scr_dir=$here/graphdescriptors
+parent="$(dirname "$here")"
+ref_data_dir=$parent/data
+data_dir=$parent/data
+scr_dir=$parent/graphdescriptors
 res=$here/results
 mkdir -p $res
 

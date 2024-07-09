@@ -1,35 +1,42 @@
 import numpy as np
 import pandas as pd
 import networkx as nx
+import re
 
-def read_lines(file_name,single=False):
-    '''parse the output from the SchNet evalutation
+def read_lines(file_name):
+    '''
+    parse the output from the SchNet evalutation
        1) a list of the coordinates of each cluster (returns 1st)
           ['O   1.922131  -1.3179458  -2.891314\n', 'H   1.9396669  -1.812519  -2.0610204\n', ...]
+       then, the comment line can contain energy information:
        2) the actual energy (returns 2nd)
-       3) the predicted energy (returns 3rd)'''
+       3) the predicted energy (returns 3rd)
+       otherwise - return zero
+    '''
     
     # Load the output file and separate into energies, coordinates, and number of atoms
-    coordinates_list=[]; energies_list=[]; atoms_list=[]
-    file = open(file_name)
+    coordinates_list=[]; energies_list=[]; atoms_list=[]; cluster_list=[]
     
-    for line in file:
-        if 'Predicted' in line or 'Energy' in line:
-            energies_list.append(line)
-        elif 'O' in line or 'H' in line:
-            coordinates_list.append(line)
-        else:
-            atoms_list.append(int(line))        
-    # Divide the structure list into clusters
-    start=0; cluster_list=[]
-    for i, atoms in enumerate(atoms_list):
-        cluster_list.append([x for x in coordinates_list[start:start+atoms]])
-        start += atoms
-    
-    if single:
-        return cluster_list, [float(str.split(x)[1]) for x in energies_list]
-    else:
-        return cluster_list, [float(str.split(x)[1]) for x in energies_list], [float(str.split(x)[3]) for x in energies_list]
+    with open(file_name, 'r') as f:
+        lines = f.readlines()
+        nr_struct = 0
+        new_struct_line = 0
+        for i, line in enumerate(lines):
+            if new_struct_line < len(lines):
+                nr_at = int(lines[new_struct_line])
+                # energy is in kcal/mol according to https://doi.org/10.1063/1.5128378
+                energy = lines[new_struct_line+1].strip()
+                e=re.findall(r"[-+]?(?:\d*\.*\d+)",energy)
+                if e:
+                    energies_list.append([float(x) for x in e])
+                else:
+                    energies_list.append([0.0])
+                coordinates_list = [x.strip() for x in lines[new_struct_line+2:new_struct_line+2+nr_at]]
+                nr_struct += 1
+                #data[nr_struct] = [str(nr_at)] + [energy] + [x for x in coords]
+                new_struct_line = new_struct_line + (2 + nr_at)
+                cluster_list.append(coordinates_list)
+    return cluster_list, energies_list
 
 def read_lines_base(file_name):
     '''parse the database xyz files
@@ -60,7 +67,7 @@ def adjacency_list(coord_list):
     s = pd.Series(coord_list)
     dfx=s.str.split(expand=True)
     coords=[str.split(x) for x in coord_list]
-    
+
     #delete atom label
     for j in coords:
         del j[0]
@@ -68,6 +75,7 @@ def adjacency_list(coord_list):
     cov_bonds, h_bonds, labels = [],[],[]
     for i, row in dfx.iterrows():
         labels.append([str(i+1),row[0]])
+    for l in labels:
     q_1_2=[]
     for i in range(len(dfx)):
         if s[i].split()[0]=='O':
@@ -88,7 +96,8 @@ def adjacency_list(coord_list):
                     h_hbond= s[indexH-1].split()  #will enumerate past the list if you let it
                 except KeyError:
                     continue
-                dist = np.linalg.norm(np.array(o_hbond[1:],dtype='float64')-np.array(h_hbond[1:],dtype='float64'))
+                if np.size(h_hbond)>0:
+                    dist = np.linalg.norm(np.array(o_hbond[1:],dtype='float64')-np.array(h_hbond[1:],dtype='float64'))
                 if (dist>1) & (dist<2.8):
                     angle = np.arccos(np.dot(roh, v)/(np.linalg.norm(roh)*np.linalg.norm(v)))*(180.0/np.pi)
                     if angle > 90.0:

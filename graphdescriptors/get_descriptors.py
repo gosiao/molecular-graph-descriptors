@@ -29,11 +29,14 @@ p.add_argument("--single", type=str2bool, required=False, nargs="?", const=True,
                 help="A switch for extracting descriptors for a single structure")
 args = p.parse_args()
 
-if args.single:
-    print("SINGLE")
-    cluster_list, actual_energy = graph_loader.read_lines(args.data_path,single=True)
-else:
-    cluster_list, actual_energy, predicted_energy = graph_loader.read_lines(args.data_path)
+cluster_list, energy = graph_loader.read_lines(args.data_path)
+
+actual_energy = []
+predicted_energy = []
+for e in energy:
+    actual_energy.append(e[0])
+    if len(e) == 2:
+        predicted_energy.append(e[1])
 print(str(len(cluster_list))+' clusters found')
 
 a = [compute_analytics.graph_analytics(x) for x in cluster_list]

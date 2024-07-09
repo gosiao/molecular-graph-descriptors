@@ -1,0 +1,9 @@
+motif,Nmotif,Nstruc_motif,IDstruc_minE,fxyz,Actual Energy,mol
+Trimers,0,8,0,/home/gosia/devel/molecular-graph-descriptors/data/water_selected_5kcalmol/W5_water_prep/W5_struc_1.xyz,-36.8050499,W5
+Trimers,1,4,5,/home/gosia/devel/molecular-graph-descriptors/data/water_selected_5kcalmol/W5_water_prep/W5_struc_6.xyz,-35.163269,W5
+Tetramers,0,4,0,/home/gosia/devel/molecular-graph-descriptors/data/water_selected_5kcalmol/W5_water_prep/W5_struc_1.xyz,-36.8050499,W5
+Tetramers,3,3,3,/home/gosia/devel/molecular-graph-descriptors/data/water_selected_5kcalmol/W5_water_prep/W5_struc_4.xyz,-35.4252281,W5
+Pentamers,1,4,0,/home/gosia/devel/molecular-graph-descriptors/data/water_selected_5kcalmol/W5_water_prep/W5_struc_1.xyz,-36.8050499,W5
+Pentamers,1,4,0,/home/gosia/devel/molecular-graph-descriptors/data/water_selected_5kcalmol/W5_water_prep/W5_struc_1.xyz,-36.8050499,W5
+Hexamers,0,12,0,/home/gosia/devel/molecular-graph-descriptors/data/water_selected_5kcalmol/W5_water_prep/W5_struc_1.xyz,-36.8050499,W5
+Hexamers,0,12,0,/home/gosia/devel/molecular-graph-descriptors/data/water_selected_5kcalmol/W5_water_prep/W5_struc_1.xyz,-36.8050499,W5
