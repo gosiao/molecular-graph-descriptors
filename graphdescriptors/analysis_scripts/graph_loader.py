@@ -75,7 +75,6 @@ def adjacency_list(coord_list):
     cov_bonds, h_bonds, labels = [],[],[]
     for i, row in dfx.iterrows():
         labels.append([str(i+1),row[0]])
-    for l in labels:
     q_1_2=[]
     for i in range(len(dfx)):
         if s[i].split()[0]=='O':
