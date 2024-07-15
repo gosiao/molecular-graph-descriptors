@@ -65,13 +65,18 @@ if args.single:
         except:
             print('error')
     
-    d = {'Id':cluster_idx, 'Nodes': a[0], 'Edges': a[1], 'Diameter': a[2],
-         'Dangling Hydrogens': a[3], 'Average Shortest Path Length': a[4],
-         'Actual Energy': actual_energy,
-         'Trimers': trimers, 'Tetramers': tetramers, 'Pentamers': pentamers,
-         'Hexamers': hexamers}
     if comments != []:
-        d['filename'] = comments
+        d = {'Id':cluster_idx, 'Nodes': a[0], 'Edges': a[1], 'Diameter': a[2],
+             'Dangling Hydrogens': a[3], 'Average Shortest Path Length': a[4],
+             'filename': comments,
+             'Trimers': trimers, 'Tetramers': tetramers, 'Pentamers': pentamers,
+             'Hexamers': hexamers}
+    else:
+        d = {'Id':cluster_idx, 'Nodes': a[0], 'Edges': a[1], 'Diameter': a[2],
+             'Dangling Hydrogens': a[3], 'Average Shortest Path Length': a[4],
+             'Actual Energy': actual_energy,
+             'Trimers': trimers, 'Tetramers': tetramers, 'Pentamers': pentamers,
+             'Hexamers': hexamers}
     
     df = pd.DataFrame(d)
     
@@ -110,17 +115,26 @@ else:
            similarity_list.append(-1)
     
     
-    d = {'Nodes': a[0], 'Edges': a[1], 'Diameter': a[2],
-         'Dangling Hydrogens': a[3], 'Average Shortest Path Length': a[4],
-         'daa': a[5], 'dda': a[6], 'da': a[7], 'aa': a[8], 'dd': a[9], 
-         'ddaaa': a[10], 'ddaa': a[11], 'a': a[12], 'd': a[13],
-         'Wiener Index': a[14], 'N Communities': a[15], 'Modularity': a[16], 
-         'Actual Energy': actual_energy,'Predicted Energy': predicted_energy,
-         'Similarity': similarity_list,'Projected Similarity': projected_similarity_list,
-         'Trimers': trimers, 'Tetramers': tetramers, 'Pentamers': pentamers,
-         'Hexamers': hexamers, 'Degree': degrees}
     if comments != []:
-        d['filename'] = comments
+        d = {'Nodes': a[0], 'Edges': a[1], 'Diameter': a[2],
+             'Dangling Hydrogens': a[3], 'Average Shortest Path Length': a[4],
+             'daa': a[5], 'dda': a[6], 'da': a[7], 'aa': a[8], 'dd': a[9], 
+             'ddaaa': a[10], 'ddaa': a[11], 'a': a[12], 'd': a[13],
+             'Wiener Index': a[14], 'N Communities': a[15], 'Modularity': a[16], 
+             'filename': comments,
+             'Similarity': similarity_list,'Projected Similarity': projected_similarity_list,
+             'Trimers': trimers, 'Tetramers': tetramers, 'Pentamers': pentamers,
+             'Hexamers': hexamers, 'Degree': degrees}
+    else:
+        d = {'Nodes': a[0], 'Edges': a[1], 'Diameter': a[2],
+             'Dangling Hydrogens': a[3], 'Average Shortest Path Length': a[4],
+             'daa': a[5], 'dda': a[6], 'da': a[7], 'aa': a[8], 'dd': a[9], 
+             'ddaaa': a[10], 'ddaa': a[11], 'a': a[12], 'd': a[13],
+             'Wiener Index': a[14], 'N Communities': a[15], 'Modularity': a[16], 
+             'Actual Energy': actual_energy,'Predicted Energy': predicted_energy,
+             'Similarity': similarity_list,'Projected Similarity': projected_similarity_list,
+             'Trimers': trimers, 'Tetramers': tetramers, 'Pentamers': pentamers,
+             'Hexamers': hexamers, 'Degree': degrees}
     
     df = pd.DataFrame(d)
     
