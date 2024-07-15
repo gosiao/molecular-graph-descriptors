@@ -15,7 +15,7 @@ def read_lines(file_name):
     '''
     
     # Load the output file and separate into energies, coordinates, and number of atoms
-    coordinates_list=[]; energies_list=[]; atoms_list=[]; cluster_list=[]
+    coordinates_list=[]; energies_list=[]; comments_list=[]; atoms_list=[]; cluster_list=[]
     
     with open(file_name, 'r') as f:
         lines = f.readlines()
@@ -31,12 +31,15 @@ def read_lines(file_name):
                     energies_list.append([float(x) for x in e])
                 else:
                     energies_list.append([0.0])
+                if 'xyz' in energy:
+                    # in a specific workflow, this comment line contains the original file name
+                    comments_list.append(energy)
                 coordinates_list = [x.strip() for x in lines[new_struct_line+2:new_struct_line+2+nr_at]]
                 nr_struct += 1
                 #data[nr_struct] = [str(nr_at)] + [energy] + [x for x in coords]
                 new_struct_line = new_struct_line + (2 + nr_at)
                 cluster_list.append(coordinates_list)
-    return cluster_list, energies_list
+    return cluster_list, energies_list, comments_list
 
 def read_lines_base(file_name):
     '''parse the database xyz files

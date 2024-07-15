@@ -29,7 +29,7 @@ p.add_argument("--single", type=str2bool, required=False, nargs="?", const=True,
                 help="A switch for extracting descriptors for a single structure")
 args = p.parse_args()
 
-cluster_list, energy = graph_loader.read_lines(args.data_path)
+cluster_list, energy, comments = graph_loader.read_lines(args.data_path)
 
 actual_energy = []
 predicted_energy = []
@@ -70,6 +70,8 @@ if args.single:
          'Actual Energy': actual_energy,
          'Trimers': trimers, 'Tetramers': tetramers, 'Pentamers': pentamers,
          'Hexamers': hexamers}
+    if comments != []:
+        d['filename'] = comments
     
     df = pd.DataFrame(d)
     
@@ -117,6 +119,8 @@ else:
          'Similarity': similarity_list,'Projected Similarity': projected_similarity_list,
          'Trimers': trimers, 'Tetramers': tetramers, 'Pentamers': pentamers,
          'Hexamers': hexamers, 'Degree': degrees}
+    if comments != []:
+        d['filename'] = comments
     
     df = pd.DataFrame(d)
     
