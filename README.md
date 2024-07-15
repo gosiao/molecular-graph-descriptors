@@ -26,38 +26,39 @@ The formatted database for the 500k training and test sets used to train the pub
 
 Code for generating graphs from molecular structures and computing various descriptors from .xyz files output from SchNetPack. The script get_descriptors.py collects a set of descriptors for all molecules in the .xyz file and outputs a csv file.
 
+A generic command to run the code is:
+
 ```
 cd graphdescriptors
 python get_descriptors.py --data_path ../data/test_predictions.xyz --output test_df.csv --min_dir ../data/
 ```
 
-or:
+#### Testing the code
+
+The simplest is to use the conda environment; yaml file is available in `tests/setup/conda_env.yml`
+
+
+With this environment activated, to run the above command on test data:
 
 ```
 ./run_all.sh
 ```
 
-To run the code for extracting selected descriptors for a single structure, run
+and to run the code for extracting selected descriptors for a single structure:
 
 ```
 ./run_single.sh
 ```
 
 The results are in the generated `results` directory.
+Compare the outputs with the ones in `reference` directory.
 
 
-To test both scripts:
-
-```
-
-```
-
-### Data analysis
+#### Data analysis
 
 Data analysis is in the `analysis` directory. All scripts present there should be executed in conda environment:
 
 ```
-conda activate struc_analysis
 cd analysis
 ```
 
