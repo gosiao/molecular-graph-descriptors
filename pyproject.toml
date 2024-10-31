@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "graphdescriptors"
+version = "0.1.0"
+license = "MIT"
+description = ""
+authors = ["gosia olejniczak <gosia.olejniczak@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pytest="^7.2"
+numpy="^1.26.0"
+pandas="^2.1.4"
+matplotlib="^3.8.0"
+seaborn="^0.12.2"
+py3dmol="^2.0.1.post1"
+rdkit="^2023.03.3"
+rdfpy="^1.0.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
