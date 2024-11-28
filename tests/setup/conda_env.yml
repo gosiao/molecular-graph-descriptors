@@ -1,4 +1,4 @@
-name: struc_analysis-env
+name: molgraphdesc_env
 channels:
   - conda-forge
   - defaults
@@ -13,3 +13,5 @@ dependencies:
   - rdkit=2023.03.3
   - rdfpy=1.0.0
   - pip=23.3.1
+  - poetry=1.8.4
+  - networkx=3.3

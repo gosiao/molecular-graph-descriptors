@@ -34,9 +34,10 @@ cluster_list, energy, comments = graph_loader.read_lines(args.data_path)
 actual_energy = []
 predicted_energy = []
 for e in energy:
-    actual_energy.append(e[0])
-    if len(e) == 2:
-        predicted_energy.append(e[1])
+    print('Actual energy: ', e)
+    actual_energy.append(e[1])
+    if len(e) == 3:
+        predicted_energy.append(e[2])
 print(str(len(cluster_list))+' clusters found')
 
 a = [compute_analytics.graph_analytics(x) for x in cluster_list]
