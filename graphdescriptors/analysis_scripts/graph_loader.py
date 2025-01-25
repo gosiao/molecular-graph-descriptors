@@ -27,12 +27,13 @@ def read_lines(file_name):
                 # energy is in kcal/mol according to https://doi.org/10.1063/1.5128378
                 energy = lines[new_struct_line+1].strip()
                 e=re.findall(r"[-+]?(?:\d*\.*\d+)",energy)
+                #print("TESTME: ", file_name, energy, 'and: ', e)
                 if e:
                     energies_list.append([float(x) for x in e])
                 else:
                     energies_list.append([0.0])
                 if 'xyz' in energy:
-                    # in a specific workflow, this comment line contains the original file name
+                    # in some tests, the comment line contains the original file name
                     comments_list.append(energy)
                 coordinates_list = [x.strip() for x in lines[new_struct_line+2:new_struct_line+2+nr_at]]
                 nr_struct += 1
@@ -59,6 +60,7 @@ def read_lines_base(file_name):
         structure_list[n][1]=float(structure_list[n][1])  #energy in float
         energy_list.append(float(structure_list[n][1]))
     return structure_list, energy_list
+
 
 
 def adjacency_list(coord_list):
