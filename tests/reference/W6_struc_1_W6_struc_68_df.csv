@@ -1,0 +1,2 @@
+Id,Nodes,Edges,Diameter,Dangling Hydrogens,Average Shortest Path Length,daa,dda,da,aa,dd,ddaaa,ddaa,a,d,Wiener Index,N Communities,Modularity,Similarity,Projected Similarity,Trimers,Tetramers,Pentamers,Hexamers,Degree,Actual Energy,Cluster Size,H-bonds,H-bond Percent,Unsaturation,daa Percent,dda Percent,H-bond Saturation
+0,18.0,20.0,8.0,4.0,1.5333333333333334,2.0,2.0,2.0,0.0,0.0,0.0,0.0,0.0,0.0,23.0,2.0,0.0546875,0.2584977927671653,4.222351296189953,0,5,0,0,2.6666666666666665,-46.5315552,6.0,8.0,0.4,2.0,0.1111111111111111,0.1111111111111111,0.6666666666666666

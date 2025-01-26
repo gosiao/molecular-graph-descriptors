@@ -53,12 +53,15 @@ def read_lines_base(file_name):
         n_lines = 2 + int(n_atoms)   #lines per cluster (#atoms + energy + coords)
     with open(file_name) as f:
         lines = f.readlines()
-    energies = np.array(lines[1::n_lines],dtype='float32') 
+    e=[]
+    for x in lines[1::n_lines]:
+        e.append(re.findall(r"[-+]?(?:\d*\.*\d+)",x))
+    energies=np.array(e).astype(np.float32)
     structure_list, energy_list = [], []
     for n in range(int(energies.shape[0])):
         structure_list.append(lines[n_lines*(n+1)-n_lines:n_lines*(n+1)])
-        structure_list[n][1]=float(structure_list[n][1])  #energy in float
-        energy_list.append(float(structure_list[n][1]))
+        structure_list[n][1]=energies[n]
+        energy_list.append(energies[n])
     return structure_list, energy_list
 
 
