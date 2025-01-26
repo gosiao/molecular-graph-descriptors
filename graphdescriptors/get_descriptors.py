@@ -40,7 +40,6 @@ cluster_list, energy, comments = graph_loader.read_lines(args.data_path)
 actual_energy = []
 predicted_energy = []
 for e in energy:
-    #print("E: ", e)
     if len(e) == 2:
         actual_energy.append(e[0])
         predicted_energy.append(e[1])
@@ -62,11 +61,13 @@ cluster_idx=[]
 
 if args.verbose:
     for k in a:
-        print (k)
         if len(k) != len(cluster_list):
             print("len error for k!")
 
 if args.single:
+
+    # get structural parameters for a single structure
+    # (do not compare with any other structure = no similarity calculations)
 
     for i, cluster in enumerate(cluster_list):
         cluster_size = int(int(len(cluster))/3)
@@ -82,10 +83,6 @@ if args.single:
         except:
             print('error')
 
-    #if len(similarity_list) != len(cluster_list):
-    #    print("len error for similarity_list!")
-    #if len(projected_similarity_list) != len(cluster_list):
-    #    print("len error for projected_similarity_list!")
     if len(trimers) != len(cluster_list):
         print("len error for trimers!")
     if len(tetramers) != len(cluster_list):
@@ -96,28 +93,23 @@ if args.single:
         print("len error for hexamers!")
     if len(cluster_idx) != len(cluster_list):
         print("len error for cluster_idx!")
-    #if len(degrees) != len(cluster_list):
-    #    print("len error for degrees!")
-
-
     
     if comments != []:
-        if args.verbose:
-            print("TESTME: 0", comments, len(comments))
-            print("TESTME: 0", a)
-        d = {'Id':cluster_idx, 'Nodes': a[0], 'Edges': a[1], 'Diameter': a[2],
+        d = {'Id':cluster_idx, 
+             'Nodes': a[0], 'Edges': a[1], 'Diameter': a[2],
              'Dangling Hydrogens': a[3], 'Average Shortest Path Length': a[4],
-             'filename': comments,
              'Trimers': trimers, 'Tetramers': tetramers, 'Pentamers': pentamers,
              'Hexamers': hexamers}
+        if len(comments) == len(cluster_list):
+            d['comments']=comments
     else:
-        if args.verbose:
-            print("TESTME: 1", a)
-        d = {'Id':cluster_idx, 'Nodes': a[0], 'Edges': a[1], 'Diameter': a[2],
+        d = {'Id':cluster_idx, 
+             'Nodes': a[0], 'Edges': a[1], 'Diameter': a[2],
              'Dangling Hydrogens': a[3], 'Average Shortest Path Length': a[4],
-             #'Actual Energy': actual_energy,
              'Trimers': trimers, 'Tetramers': tetramers, 'Pentamers': pentamers,
              'Hexamers': hexamers}
+    if len(actual_energy) == len(cluster_list):
+        d['Actual Energy']=actual_energy
     
     df = pd.DataFrame(d)
     
@@ -128,7 +120,9 @@ if args.single:
 
 else:
 
-
+    # the "orignal" code:
+    # in addition to structural information, calculate graph similarity;
+    # requires a reference structure
     for i, cluster in enumerate(cluster_list):
         cluster_idx.append(i)
         cluster_size = int(int(len(cluster))/3)
